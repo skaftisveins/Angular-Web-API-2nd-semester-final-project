@@ -208,14 +208,14 @@
                 <div class="input-group-prepend m-1">
                   <span class="input-group-text">Look for a comment</span>
                   <div class="">
-                    <input [(ngModel)]="searchText" placeholder="search for a comment..." type="text"
+                    <input placeholder="search for a comment..." type="text"
                       aria-label="searchText" class="form-control">
                   </div>
                 </div>
                 <div class="input-group-prepend m-1">
                   <span class="input-group-text">Filter by flagged comments</span>
                   <div class="col-5">
-                    <input [(ngModel)]="checked" aria-label="Flagged" class="form-control"
+                    <input aria-label="Flagged" class="form-control"
                       type="checkbox">
                   </div>
                 </div>
@@ -235,7 +235,7 @@
                 <th scope="col">Remove</th>
             </thead>
             <tbody>
-            <tr *ngFor="let comment of allComments | flag : checked | filterMessage : searchText" (click)="onLoadCommentToEdit(comment)" ngbTooltip="Click to Edit">
+            <tr *ngFor="let comment of allComments | flag | filterMessage" (click)="onLoadCommentToEdit(comment)" ngbTooltip="Click to Edit">
               <td class="text-center">{{ comment.Id }}</td>
               <td colspan="5">{{ comment.PosterId }}</td>
               <td class="text-center">{{ comment.CardId }}</td>
@@ -317,7 +317,7 @@
                 <div class="input-group-prepend m-1">
                   <span class="input-group-text">Look for a user</span>
                   <div class="">
-                    <input [(ngModel)]="searchText" placeholder="search for a username..." type="text"
+                    <input placeholder="search for a username..." type="text"
                       aria-label="searchText" class="form-control">
                   </div>
                 </div>
@@ -331,7 +331,7 @@
                 <th scope="col">Remove</th>
               </thead>
               <tbody>
-                <tr *ngFor="let user of allUsers | filterUser : searchText" (click)="onLoadUserToEdit(user)" ngbTooltip="Click to Edit">
+                <tr *ngFor="let user of allUsers | filterUser" (click)="onLoadUserToEdit(user)" ngbTooltip="Click to Edit">
                   <td class="text-center">{{ user.Id }}</td>
                   <td class="text-center">{{ user.UserName }}</td>
                   <td class="text-center">{{ user.Points }}</td>
