@@ -1,0 +1,19 @@
+.herocard {
+    cursor: pointer;
+    transition: transform .2s;
+}
+
+.playable {
+    /* border: solid 2px red; */
+}
+.herocard:hover {
+    transform: scale(0.98);
+}
+.card-img-top {
+    object-fit: cover;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+}

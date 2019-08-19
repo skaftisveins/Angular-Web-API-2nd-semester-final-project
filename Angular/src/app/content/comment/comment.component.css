@@ -1,0 +1,17 @@
+.sep {
+    content: " | ";
+    margin: 0 1rem;
+    padding: 0 0.1rem;
+}
+
+.flag {
+    cursor: pointer;
+}
+
+.redFlag {
+    color: red;
+}
+
+.okFlag {
+    color: inherit;
+}

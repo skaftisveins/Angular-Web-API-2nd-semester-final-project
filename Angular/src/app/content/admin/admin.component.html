@@ -1,0 +1,353 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active bg-dark text-white m-1" id="home-tab" data-toggle="tab" href="#herocards" role="tab" aria-controls="home" aria-selected="true">Herocards</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link bg-dark text-white m-1" id="profile-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="profile" aria-selected="false">Comments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link bg-dark text-white m-1" id="contact-tab" data-toggle="tab" href="#users" role="tab" aria-controls="contact" aria-selected="false">Users</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+
+  <!-- herocard tab -->
+  <div class="tab-pane fade show active" id="herocards" role="tabpanel" aria-labelledby="herocard-tab">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-dark m-2" placement="right" ngbTooltip="Click to Create"
+            (click)="onCreateHerocard()">Create Herocard</button>
+          <form *ngIf="tmpHerocard" [formGroup]="herocardForm" (ngSubmit)="onHerocardSubmit()" class="col-lg-12">
+
+            <div class="row">
+              <fieldset class="form-group col-md-4">
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Name</span>
+                  <div class="">
+                    <input formControlName="Name" placeholder="Herocard name" aria-label="Name"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Description</span>
+                  <div class="">
+                    <input formControlName="Description" placeholder="Description" aria-label="Description"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="form-group col-md-4">
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Health</span>
+                  <div class="col-4">
+                    <input formControlName="Health" placeholder="Health" aria-label="Health"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Attack_Power</span>
+                  <div class="col-4">
+                    <input formControlName="Attack_Power" placeholder="Attack Power" aria-label="Attack Power"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Defense_Power</span>
+                  <div class="col-4">
+                    <input formControlName="Defense_Power" placeholder="Defense Power" aria-label="Defense Power"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Level_Power</span>
+                  <div class="col-4">
+                    <input formControlName="Level_Power" placeholder="Level Power" aria-label="Level Power"
+                      class="form-control validate" type="text">
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="form-group col-md-4">
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Price</span>
+                  <div class="col-5">
+                    <input formControlName="Price" placeholder="Price" aria-label="Price" class="form-control validate"
+                      type="text">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Poster</span>
+                  <div class="col-7">
+                    <input formControlName="Poster" placeholder="Poster" aria-label="Poster"
+                      class="form-control validate" type="text" ngbTooltip="i.imgur.com/17ZthpB.jpg - fx. '17ZthpB.jpg'"
+                      [openDelay]="500" [closeDelay]="100">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Active</span>
+                  <div class="col-5">
+                    <input formControlName="Active" aria-label="Active" class="form-control validate" type="checkbox">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Visible</span>
+                  <div class="col-5">
+                    <input formControlName="Visible" placeholder="Visible" aria-label="Active"
+                      class="form-control validate" type="checkbox">
+                  </div>
+                </div>
+              </fieldset>
+              <div class="col-lg-12 d-flex justify-content-center">
+                <button type="submit" class="btn btn-outline-primary m-2" [disabled]=herocardForm.invalid>Submit</button>
+                <button type="reset" class="btn btn-outline-secondary m-2" (click)="cancelHerocardForm()">Cancel</button>
+              </div>
+
+            </div>
+            <input type="hidden" formControlName="Id" name="hiddenVar" value="{{ tmpHerocard.Id }}">
+
+          </form>
+          <table class="table table-hover table-striped table-dark mt-2">
+            <thead class="thead-dark">
+              <th scope="col">Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Health</th>
+              <th scope="col">Attack_Power</th>
+              <th scope="col">Defense_Power</th>
+              <th scope="col">Level_Power</th>
+              <th scope="col">Price</th>
+              <th scope="col">Poster</th>
+              <th scope="col">Active</th>
+              <th scope="col">Visible</th>
+              <th scope="col">Remove</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let herocard of herocards" (click)="onLoadHerocardToEdit(herocard)" ngbTooltip="Click to Edit">
+              <td class="text-center">{{ herocard.Id }}</td>
+              <td class="text-center">{{ herocard.Name }}</td>
+              <td class="text-center">{{ herocard.Description }}</td>
+              <td class="text-center">{{ herocard.Health }}</td>
+              <td class="text-center">{{ herocard.Attack_Power }}</td>
+              <td class="text-center">{{ herocard.Defense_Power }}</td>
+              <td class="text-center">{{ herocard.Level_Power }}</td>
+              <td class="text-center">{{ herocard.Price }}</td>
+              <td class="text-center">{{ herocard.Poster }}</td>
+              <td class="text-center">{{ herocard.Active }}</td>
+              <td class="text-center">{{ herocard.Visible }}</td>
+              <td class="text-center"> 
+                <button type="button" class="btn btn-sm btn-danger" ngbTooltip="Click to Delete"
+                  (click)="onDeleteHerocard(herocard.Id)"><i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- comments tab -->
+  <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comment-tab">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-dark m-2" placement="right" ngbTooltip="Search and look for all comments.."
+          (click)="onCommentFilterOptions()">Search for ...</button>
+          <form *ngIf="tmpComment" [formGroup]="commentForm" (ngSubmit)="onCommentSubmit()" class="col-lg-12">
+
+              <div class="row justify-content-center m-3">
+                <fieldset class="form-group col-md-6">
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Message</span>
+                    <div class="">
+                      <textarea class="form-control validate p-2" formControlName="Message" aria-label="Message" cols="40" rows="4" style="opacity: 0.8;"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6">
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Flagged</span>
+                    <div class="col-5">
+                      <input formControlName="isFlagged" aria-label="Flagged" class="form-control validate" type="checkbox">
+                    </div>
+                  </div>
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Visible</span>
+                    <div class="col-5">
+                      <input formControlName="Visible" placeholder="Visible" aria-label="Active"
+                        class="form-control" type="checkbox">
+                    </div>
+                  </div>
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Created</span>
+                    <div class="">
+                      <input formControlName="Created" placeholder="" aria-label="Created"
+                        class="form-control" type="datetime">
+                    </div>
+                  </div>
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Updated</span>
+                    <div class="">
+                      <input formControlName="Updated" placeholder="" aria-label="Updated"
+                        class="form-control" type="datetime">
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="col-lg-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-outline-primary m-2" [disabled]=commentForm.invalid>Submit</button>
+                  <button type="reset" class="btn btn-outline-secondary m-2" (click)="cancelCommentForm()">Cancel</button>
+                </div>
+  
+              </div>
+              <input type="hidden" formControlName="Id" name="hiddenVar" value="{{ tmpComment.Id }}">
+  
+            </form>
+            <div *ngIf="tmpSearchComment" class="row m-2">
+              <fieldset class="d-flex flex-row form-group">
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Look for a comment</span>
+                  <div class="">
+                    <input [(ngModel)]="searchText" placeholder="search for a comment..." type="text"
+                      aria-label="searchText" class="form-control">
+                  </div>
+                </div>
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Filter by flagged comments</span>
+                  <div class="col-5">
+                    <input [(ngModel)]="checked" aria-label="Flagged" class="form-control"
+                      type="checkbox">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          <table class="table table-responsive table-hover table-striped table-dark mt-2">
+            <thead class="thead-dark">
+                <th scope="col">Id</th>
+                <th scope="col" colspan="5">PosterId</th>
+                <th scope="col">CardId</th>
+                <th scope="col">Message</th>
+                <th scope="col"></th>
+                <th scope="col">Flagged</th>
+                <th scope="col">Visible</th>
+                <th scope="col" colspan="5">Created</th>
+                <th scope="col" colspan="5">Updated</th>
+                <th scope="col">Remove</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comment of allComments | flag : checked | filterMessage : searchText" (click)="onLoadCommentToEdit(comment)" ngbTooltip="Click to Edit">
+              <td class="text-center">{{ comment.Id }}</td>
+              <td colspan="5">{{ comment.PosterId }}</td>
+              <td class="text-center">{{ comment.CardId }}</td>
+              <td colspan="2">{{ comment.Message }}</td>
+              <td class="text-center">{{ comment.isFlagged }}</td>
+              <td class="text-center">{{ comment.Visible }}</td>
+              <td class="text-center" colspan="5">{{ comment.Created | date:'MMMM dd HH:mm' }}</td>
+              <td class="text-center" colspan="5">{{ comment.Updated | date:'MMMM dd HH:mm' }}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-sm btn-danger" ngbTooltip="Click to Delete"
+                  (click)="onDeleteComment(comment.Id)"><i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users tab -->
+  <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="user-tab">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-dark m-2" placement="right" ngbTooltip="Search for user.."
+          (click)="onUserFilterOptions()">Search for ...</button>
+          <button type="button" class="btn btn-dark m-2" placement="right" ngbTooltip="Click to register a new user"
+          (click)="onRegisterNewUser()">Create a new user</button>
+          <form *ngIf="tmpUser" [formGroup]="userForm" (ngSubmit)="onUserSubmit()" class="col-lg-12">
+
+              <div class="row m-3">
+                <fieldset class="form-group col-md-12">
+                  <div class="row justify-content-center">
+
+                  
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">ID</span>
+                    <div class="">
+                      <input formControlName="Id" aria-label="Id" class="form-control validate" type="text" readonly>
+                    </div>
+                  </div>
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Username</span>
+                    <div class="">
+                      <input formControlName="Username" aria-label="Username" class="form-control validate" type="text" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Email</span>
+                    <div class="">
+                      <input formControlName="Email" aria-label="Email" class="form-control validate" type="text" readonly>
+                    </div>
+                  </div>
+                  <div class="input-group-prepend m-1">
+                    <span class="input-group-text">Heropoints</span>
+                    <div class="">
+                      <input formControlName="Points" aria-label="Heropoints" class="form-control validate" type="text">
+                    </div>
+                  </div>
+                </div>
+                
+                </fieldset>
+              <div class="col-lg-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-outline-primary m-2" [disabled]=userForm.invalid>Submit</button>
+                  <button type="reset" class="btn btn-outline-secondary m-2" (click)="cancelUserForm()">Cancel</button>
+                </div>
+  
+              </div>
+              <input type="hidden" formControlName="Id" name="hiddenVar" value="{{ tmpUser.Id }}">
+  
+            </form>
+            <div *ngIf="tmpSearchUser" class="row m-2">
+              <fieldset class="d-flex flex-row form-group">
+                <div class="input-group-prepend m-1">
+                  <span class="input-group-text">Look for a user</span>
+                  <div class="">
+                    <input [(ngModel)]="searchText" placeholder="search for a username..." type="text"
+                      aria-label="searchText" class="form-control">
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <table class="table table-fit table-responsive table-hover table-striped table-dark mt-2">
+              <thead class="thead-dark">
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Heropoints</th>
+                <th scope="col">Remove</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of allUsers | filterUser : searchText" (click)="onLoadUserToEdit(user)" ngbTooltip="Click to Edit">
+                  <td class="text-center">{{ user.Id }}</td>
+                  <td class="text-center">{{ user.UserName }}</td>
+                  <td class="text-center">{{ user.Points }}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-danger" ngbTooltip="Can only delete user if he has no Herocards"
+                      (click)="onDeleteUser(user.Id)"><i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

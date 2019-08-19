@@ -1,0 +1,79 @@
+<div class="d-flex flex-wrap p-2">
+
+  <div class="herocard playable card text-white bg-dark border-dark m-2" style="z-index: 99;" (click)="onDetails(content)"
+    *ngFor="let herocard of herocards" ngbTooltip="{{ herocard.Description }}" [openDelay]="500" [closeDelay]="100">
+    <ng-container *ngIf="herocard.Poster else noPoster">
+      <img class="card-img-top img-fluid" [src]="dataService._herocardImgURL + herocard.Poster | safeUrl"
+        alt="Card image">
+    </ng-container>
+    <div class="card-body"><span class="d-inline-flex badge badge-pill badge-secondary" style="font-size:0.8rem;">Lv.
+        {{ herocard.Level_Power }}</span>
+      <h4 class="card-title ">{{ herocard.Name }} </h4>
+      <p class="card-text"><i class="far fa-heart fa-lg mr-3"></i>{{ herocard.Health }}</p>
+      <p class="card-text"><i class="fas fa-haykal fa-lg mr-3"></i>{{ herocard.Attack_Power }}</p>
+      <p class="card-text"><i class="fas fa-shield-alt fa-lg mr-3"></i>{{ herocard.Defense_Power }}</p>
+    </div>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">{{ herocard.Name }}<span
+            class="d-inline-flex badge badge-pill badge-secondary ml-3" style="font-size:1rem;">Level
+            {{ herocard.Level_Power }}</span>
+          <h6 class="m-2 text-wrap"><span class="font-italic text-muted">Lorem Ipsum is simply dummy text of the
+              printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+              1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            </span></h6>
+        </h5>
+        <ng-container *ngIf="herocard.Poster else noPoster">
+          <img class="img-fluid" [src]="dataService._herocardImgURL + herocard.Poster | safeUrl" alt="Card image">
+        </ng-container>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="card-text"><i class="far fa-heart fa-lg mr-3"></i>Health: {{ herocard.Health }}</p>
+            <p class="card-text"><i class="fas fa-haykal fa-lg mr-3"></i>Attack Power: {{ herocard.Attack_Power }}</p>
+            <p class="card-text"><i class="fas fa-shield-alt fa-lg mr-3"></i>Defense Power: {{ herocard.Defense_Power }}
+            </p>
+            <p class="card-text"><i class="fas fa-tag fa-lg mr-3"></i>Price: {{ herocard.Price }}</p>
+
+          </div>
+          <div class="col-md-6">
+            <ng-container *ngIf="token$ | async as token else guest">
+              <p class="card-text mt-2"><i class="fas fa-coins fa-lg mr-3"></i><span
+                  class="text-muted font-weight-bold lead">Heropoints: {{ user.Points }}</span>
+              </p>
+              <div class="d-flex flex-row align-items-end">
+                <button type="button" *ngIf="storeView" class="btn btn-outline-success m-1" (click)="onBuyCard(herocard)">Buy</button>
+                <button type="button" *ngIf="userView" class="btn btn-outline-info m-1" (click)="onSellCard(herocard)"
+                  ngbTooltip="Heropoints for selling this card: {{ (herocard.Price*2)/3 }}" [openDelay]="500"
+                  [closeDelay]="100">Sell</button>
+                <button type="button" *ngIf="playable" class="btn btn-outline-primary m-1" (click)="onSetHerocardPlayable(herocard)" ngbTooltip="Mark this card as playable" [openDelay]="500"
+                [closeDelay]="100">Use Card</button>
+              </div>
+            </ng-container>
+            <div class="d-flex flex-row-reverse align-items-end">
+              <button type="button" class="btn btn-outline-dark m-1" (click)="modal.close('Save click')"
+                ngbTooltip="Tip: Hit ESC to close this window">Close</button>
+
+            </div>
+            <ng-template #guest>
+              <p><a href="login" class="lead">Login</a> or <a href="register" class="lead">Sign up</a> to buy and sell herocards</p>
+            </ng-template>
+
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer d-flex justify-content-center m-1" *ngIf="token$ | async as token">
+        <app-comment class="col-md-12" [cardId]="herocard.Id"></app-comment>
+      </div>
+
+    </ng-template>
+
+  </div>
+</div>
+
+<ng-template #noPoster>
+  <img src="" alt="">
+</ng-template>

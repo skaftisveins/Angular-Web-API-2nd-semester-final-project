@@ -1,0 +1,48 @@
+<h6>Comments</h6>
+<div>
+  <button *ngIf="!btnComment" type="button" class="btn btn-sm btn-outline-dark" (click)="onShowCommentForm()">Post Comment..</button>
+  <button *ngIf="btnComment" type="reset" class="btn btn-sm btn-outline-secondary" (click)="onCancelCommentForm()">Cancel</button>
+</div>
+
+  <ul *ngIf="btnComment" class="list-group col-md-12">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+      <textarea autofocus class="p-2" formControlName="Message" name="comment" cols="40" rows="4" style="opacity: 0.8;" placeholder="Leave your comment..." ></textarea>
+      <button type="submit" class="btn btn-sm btn-outline-primary ml-2 mb-4">Submit</button>
+    </form>
+  </ul>
+  
+<div *ngFor="let comment of comments" class="media text-muted pt-3">
+  <ul class="list-group col-md-12">
+    <li class="list-group-item list-group-item-secondary">
+      <div class="d-flex flex-row" *ngIf="auth$ | async as auth">
+
+          <!-- [ngStyle]="{'color': 'red' ? 'color': 'black'}" -->
+          <!-- [ngClass]="{ 'redFlag': flag, 'okFlag': !flag }" -->
+          <!-- [ngStyle]="flagStyles" -->
+          <!-- [ngClass]="{ 'redFlag': flaggedComments, 'okFlag': comments }" -->
+          
+          <span *ngIf="!comment.isFlagged" class="flag d-flex badge badge-pill"  (click)="onFlagComment(comment)" ngbTooltip="Flag comment as inappropriated" [openDelay]="500" [closeDelay]="100" style="font-size:0.6rem;"
+           style="font-size:0.6rem;"><i class="far fa-flag fa-lg mr-3"></i>
+        </span>
+        <span *ngIf="comment.Username == auth.userName" class="flag d-flex badge badge-pill"
+          ngbTooltip="Edit your comment" [openDelay]="500" [closeDelay]="100" style="font-size:0.6rem;"
+          (click)="onEditComment(comment)"><i class="far fa-edit fa-lg mr-3"></i>
+        </span>
+        <span *ngIf="comment.Username == auth.userName" class="flag d-flex badge badge-pill"
+          ngbTooltip="Remove your comment" [openDelay]="500" [closeDelay]="100" style="font-size:0.6rem;"
+          (click)="onRemoveComment(comment.Id, comment)"><i class="far fa-trash-alt fa-lg mr-3"></i>
+        </span>
+        <span *ngIf="auth.admin" class="flag d-flex badge badge-pill" ngbTooltip="Delete a comment" [openDelay]="500"
+          [closeDelay]="100" style="font-size:0.6rem;" (click)="onDeleteComment(comment.Id, comment)"><i
+            class="fas fa-ban fa-lg mr-3"></i>
+        </span>
+      </div>
+
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark">{{ comment.Username }}<span
+            class="sep font-weight-light">{{ comment.Created | date:'MMMM dd HH:mm' }}</span></strong>
+        {{ comment.Message }}
+      </p>
+    </li>
+  </ul>
+</div>

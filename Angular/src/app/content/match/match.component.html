@@ -1,0 +1,51 @@
+<button type="button" class="btn btn-dark m-2" 
+  (click)="showYourCards()">Your cards</button>
+<button type="button" class="btn btn-dark m-2" 
+(click)="showPlayableCards()">Show playable cards</button>
+
+<div *ngIf="showYouCards" class="container">
+  <h2>Your cards</h2>
+
+  <div>
+    <!-- cdkDropList
+    #YourDeck="cdkDropList"
+    [cdkDropListData]="userDeck"
+    [cdkDropListConnectedTo]="[PlayableDeck]"
+    (cdkDropListDropped)="drop($event)"> -->
+    <app-herocard [herocards]="userDecks"></app-herocard>
+
+    <!-- <div class="list-group">
+      <div class="d-inline-flex justify-content-center">
+        <div class="col-md-2 list-group-item bg-dark text-white m-2" *ngFor="let card of userDecks" cdkDrag>
+          <span style="color: white;">
+            <i class="fas fa-arrows-alt"></i>
+          </span><small>{{ card.Name }}</small>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div *ngIf="showYouPlayableCards" class="container">
+  <h2>Playable</h2>
+
+  <!-- <div class="list-group">
+    <div class="d-inline-flex justify-content-center">
+      <div class="col-md-2 list-group-item bg-dark text-white m-2" *ngFor="let card of playableUserDecks" cdkDrag>
+        <span style="color: white;">
+          <i class="fas fa-arrows-alt"></i>
+        </span><small>{{ card.Name }}</small>
+      </div>
+    </div>
+  </div> -->
+
+  <div>
+    <!-- cdkDropList
+    #PlayableDeck="cdkDropList"
+    [cdkDropListData]="playableDeck"
+    [cdkDropListConnectedTo]="[YourDeck]"
+    (cdkDropListDropped)="drop($event)"> -->
+    <app-herocard [herocards]="playableUserDecks"></app-herocard>
+
+  </div>
+</div>

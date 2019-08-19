@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div class="d-flex input-group-sm mb-3 justify-content-center">
+    <div class="input-group-prepend col-md-6">
+      <i class="fas fa-user-circle fa-lg mr-3 mt-2"></i>
+      <input type="email" class="form-control" formControlName="Email" placeholder="Email" ngbTooltip="Enter your email"
+        [openDelay]="500" [closeDelay]="100" required>
+    </div>
+  </div>
+  <div class="d-flex input-group-sm mb-3 justify-content-center">
+    <div class="input-group-prepend col-md-6">
+      <i class="fas fa-key fa-lg mr-3 mt-2"></i>
+      <input type="password" class="form-control" formControlName="Password" placeholder="Password"
+        ngbTooltip="Enter your password" [openDelay]="500" [closeDelay]="100" required>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+   
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+  </div>
+
+</form>
+

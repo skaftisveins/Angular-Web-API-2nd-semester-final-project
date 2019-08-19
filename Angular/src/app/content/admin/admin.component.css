@@ -1,0 +1,17 @@
+/* https://stackoverflow.com/questions/22743457/how-can-i-change-the-size-of-a-bootstrap-checkbox */
+
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(0.6); /* IE */
+  -moz-transform: scale(0.6); /* FF */
+  -webkit-transform: scale(0.6); /* Safari and Chrome */
+  -o-transform: scale(0.6); /* Opera */
+  padding: 10px;
+}
+
+th .text-center
+{
+    text-align: center !important;
+}
+

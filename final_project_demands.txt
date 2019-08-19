@@ -1,0 +1,41 @@
+Lokaverkefni
+Solution: FinalProject
+Database: HerocardDB
+Entity Framework Model: DBConnection / ApplicationDbContext
+
+IN PROGRESS: user component
+admin component: radio buttons for active and visible, popup modal when creating new herocard
+buy check, warning in front end if heropoints too low
+seed 2 new cards
+
+Table: Herocard
+Id
+Health
+Attack 
+Defense
+Special Ability
+
+Controllers
+AdminController
+HerocardController
+
+Queries
+HerocardQueries
+
+*** Public API
+RoutePrefix ("api/herocards")
+/api/herocards ("all")
+/api/:details/{id} ("{id}")
+/api/register
+
+*** User API
+/api/herocard/buy
+/api/herocard/sell
+/api/herocards
+
+*** Admin API
+/api/admin/herocard/add
+/api/admin/herocard/edit
+/api/admin/herocard/remove
+
+)

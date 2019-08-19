@@ -1,0 +1,23 @@
+save comment after editing => not instance of an object error in db <-- fixed
+heropoints observable?
+posterId = user.userName <--- done
+*ngIf card in deck = true => SELL button in main.comp
+
+query sem tékkar á deck card hvort sé true á playable
+nota svo playable bool á drag and drop í match.ts
+
+admin page, editHerocard false á deletecard click
+
+animation fade og match component
+comment. autofocus á textarea
+enter (return) virkar sem submit?
+ngbTooltip á flag í comments
+updated setja á datetime.utcnow á create comment
+heropoints sjást ekki fyrir non admin
+
+taka út 'user card' á match component
+
+npm update @angular/cli @angular/cdk rxjs
+npm install -S @angular/material @angular/cdk @angular/animations
+npm uninstall @angular/core
+npm install -S @angular/core
